@@ -35,30 +35,18 @@ app.get("/api/notes/:id", (req, res) => {
 
 // POST ... write to db.json
 app.post("/api/notes", (req, res) => {
-    db.push(req.body);
+    let note = req.body;
+    db.push(note);
     fs.writeFile("./db/db.json", JSON.stringify(db), err => {
         if (err) throw err;
     });
-    res.send();
+    // res.send();
+    console.log("Added");
+    res.json(note);
 });
+
+
 
 app.listen(PORT, () => {
     console.log("App listening on PORT " + PORT);
 });
-
-
-
-/*
-
-app.delete(`/api/notes/:id`, function(req, res) {
-  
-  const chosen = req.params.id;
-  const index = db.findIndex( note => note.id === chosen);
-  db.splice(index, 1);
-  fs.writeFile("develop/db/db.json", JSON.stringify(db), err => {
-    if (err) throw err;
-  });
-  res.send();
-});
-
- */
